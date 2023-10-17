@@ -1,0 +1,15 @@
+one click:::::
+{'id': 2, 'UnitID': 10, 'currMod': 'Soldier', 'nextMod': 'Truck', 'oldPos': (0, 0, 0), 'newPos': (4, 6, 0), 'newOri': (0, -1, 0), 'contents': 'RemoteAgent'} 
+
+
+
+{'id': 2, 'UnitID': 10, 'currMod': 'Soldier', 'nextMod': 'Truck', 'oldPos': (0, 0, 0), 'newPos': (4, 6, 0), 'newOri': (0, -1, 0), 'contents': 'RemoteAgent'}
+
+
+two click : 
+{'id': 2, 'UnitID': 11, 'currMod': 'Truck', 'nextMod': 'Tank', 'oldPos': (0, 0, 0), 'newPos': (4, 7, 0), 'newOri': (0, -1, 0), 'contents': 'RemoteAgent'}
+
+
+
+
+
