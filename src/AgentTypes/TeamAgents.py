@@ -30,7 +30,9 @@ def nth(iterable, n, default=None):
     "Returns the nth item or a default value"
     return next(itertools.islice(iterable, n, None), default)
 
+
 def getUnitAction(UnitType, ActionOptions, msg, ActionNames):
+    
     """
     Prompts the Human agent to select an action for the Unit. 
     If only one action is available, that action will be automatically selected
@@ -68,8 +70,12 @@ def getUnitAction(UnitType, ActionOptions, msg, ActionNames):
         data_msg = f"{ActionCount} - {ActionNames[0][ActionCount]}"
         arr_msg.append(data_msg)
         print(ActionCount, " - ",ActionNames[0][ActionCount])
-        #print(ActionCount, " - ",ActionOptions[0][ActionCount])
-    datavalue = board_func.create_dropdown(arr_msg)
+        
+        
+    # print(ActionCount, " - ",ActionOptions[0][ActionCount])
+    datavalue = board_func.create_dropdown(arr_msg) 
+    
+    
     if datavalue:
         print(datavalue)
         datavalue = datavalue
@@ -91,6 +97,7 @@ def getUnitAction(UnitType, ActionOptions, msg, ActionNames):
         except ValueError:
             print("Invalid input, please try again.")
     return Action
+
 
 class TeamHumanAgentClass(HumanAgentClass):
     def __init__(self, ID, TeamID):
@@ -144,13 +151,11 @@ class TeamUniformRandomAgentClass(UniformRandomAgentClass):
         self.TeamID = TeamID
         self.Went = 0
 
-
 class RLAgent_One(Qlearning_1):
     def __init__(self, ID, TeamID):
         Qlearning_1.__init__(self, ID)
         self.TeamID = TeamID
         self.Went = 0
-
 
 class RLAgent_Two(Qlearning_2):
     def __init__(self, ID, TeamID):
@@ -466,4 +471,5 @@ class TeamDecisionTreeRandomAgentClass(DynamicRandomAgentClass):
                 # State 7 is Friendly Present, Enemy Present, Flag Present
         
         return StateID
-        
+
+

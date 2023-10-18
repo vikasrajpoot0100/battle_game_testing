@@ -317,6 +317,7 @@ class TeamCaptureFlagClass(GameClass):
         return ObservedStates
 
     def play(self, State: TeamStateClass):
+       
         """
         Play the game starting from `State` and print the result
 
@@ -331,6 +332,7 @@ class TeamCaptureFlagClass(GameClass):
             A history of the game `State` for each turn
 
         """
+        
         R = GameClass.play(self, State)
         LastState = R[0]
         TeamsLeft = []

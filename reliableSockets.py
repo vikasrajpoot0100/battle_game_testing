@@ -28,7 +28,7 @@ def toEightBytes(number):
 
 
 def sendReliablyBinary(msg, conn, verbose = False):
-    verbose = True
+    verbose = False
     import math, random, copy, select
     wholePacketSize = 1048
     dataPacketSize = wholePacketSize - 48 # HEADER: Reserve the first 48 bytes of each packet as six INT64s. 
@@ -204,7 +204,7 @@ def sendReliablyBinary(msg, conn, verbose = False):
 
 
 def recvReliablyBinary2(conn, data, verbose = False):
-    verbose = True
+    verbose = False 
 
     import time
     import copy
@@ -473,7 +473,7 @@ def recvReliablyBinary2(conn, data, verbose = False):
 
                     
 def emptySocket(conn, verbose = False):
-    verbose = True
+    verbose = False
     import select
     # empty this socket before continuing
     if verbose: print('reliableSockets.py recvReliablyBinary2 line 455:  emptying socket')
@@ -490,4 +490,5 @@ def emptySocket(conn, verbose = False):
         except:
             break
     if verbose: print('socket emptied')                
-                    
+
+                  

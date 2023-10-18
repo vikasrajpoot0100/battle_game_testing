@@ -78,7 +78,7 @@ class Board(UserList):
         self._bgrect = self._canvas.create_rectangle(1, 1, 2, 2, width=0)
         image_path = "./src/img/bg_img.png"
         self._bgimage_id = image_path
-        self._msgbar = None                 # message bar component
+        self._msgbar = None                     # message bar component
         self._output_textfield = None
 
         # Fields for board properties
@@ -596,6 +596,7 @@ class Board(UserList):
         # def clear(self):
         #     for buttont in self._output_text_fields:
         #         buttont.delete('1.0', END)
+    
     def pause(self, msecs, change_cursor=True):
         """
 
@@ -699,7 +700,7 @@ class Board(UserList):
             ori = (math.degrees(math.atan2(new_value[0][1],new_value[0][0])))
             diff = ori - self._cells[row][col].angle
             self._cells[row][col].angle = ori
-            self._cells[row][col].value = new_value[1]
+            self._cells[row][col].value = new_value[1] 
 
     # Config the canvas size
     def _resize_canvas(self):
@@ -880,7 +881,7 @@ class Board(UserList):
         def __init__(self, length, parent):
             UserList.__init__(self)
             self.extend([None] * length)         # Initialize the row
-            self._parent = parent           # the board
+            self._parent = parent                # the board
 
         def __setitem__(self, j,value):
             self._parent._notify_change(self.__class__.current_i, j, value)

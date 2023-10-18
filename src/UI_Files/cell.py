@@ -130,7 +130,8 @@ class Cell(object, metaclass=CellProperties):
 #                        self._angle = 0
                     #self.angle += 90
                     #self.tkimg = ImageTk.PhotoImage(self.tkimg.rotate(self._angle))
-                    self.tkimg = ImageTk.PhotoImage(img)
+                    self.tkimg = ImageTk.PhotoImage(img) 
+                    
                     self._image_id = self._canvas.create_image(  # Draw a image
                         hc,
                         vc,

@@ -82,6 +82,7 @@ TwoPlayerCordFlag = ( ((0,math.floor(State0.BoardSize[0]/2)-1),(0,math.floor(Sta
                ((math.ceil(State0.BoardSize[0]/2),State0.BoardSize[0]-1),(math.ceil(State0.BoardSize[1]/2),State0.BoardSize[1]-1),(0,State0.BoardSize[2]-1))
              )
 
+                            # print('////////////TYPE/////////////',type(data[1]))
 OnePlayerCord = ( ((0,State0.BoardSize[0]-1),(0,State0.BoardSize[1]/2-1),(0,State0.BoardSize[2]-1)),
                ((0,State0.BoardSize[0]-1),(State0.BoardSize[1]/2,State0.BoardSize[1]-1),(0,State0.BoardSize[2]-1))
              )
@@ -390,6 +391,7 @@ def sendResult(conn, Result):
     print("Game Over.  Press Ctrl-C to exit.")
     conn.close()
 
+
 if GameType == '--train':
     RandomAgentIDs = [2,3]
     RemoteAgentIDs = []
@@ -432,16 +434,17 @@ if GameType == '--train':
         Game,State0,eps = resetGame(QT,eps)
     print("TD Agents Won",score[0],'/50 games')
 
+
 elif GameType == '--test':
     RandomAgentIDs = []
     RemoteAgentIDs = [2,3]
     
     print('This version of GUI is meant for reliable server and client communication through an external network.')
 
-    import urllib.request
-    external_ip = urllib.request.urlopen('https://ident.me').read().decode('utf8')
-    print('Your router\'s external IP address is: ',external_ip)
-    print('and your server\'s local IP address is: ',getIp())
+    # import urllib.request
+    # external_ip = urllib.request.urlopen('https://ident.me').read().decode('utf8')
+    # print('Your router\'s external IP address is: ',external_ip) 
+    # print('and your server\'s local IP address is: ',getIp())
     print('Please configure your router\'s Port Forwarding so that port 5050 is forwarded to ',getIp())
             
     Server = socket.gethostbyname(getIp())
@@ -494,7 +497,7 @@ elif GameType == '--test':
                                 Agent.Connection = Connections[ID]
                                 Game.Agents[ID] = Agent
                                 print('Updated Agent',ID,'with connection', Agent.Connection)
-                        print("Creating new game...")
+                        print("Creating new game...") 
                     start_new_thread(initPositions, (conn, PlayerID, TeamID,QTable["FlagPositions"]))
                     if idCount == NumberOfPlayers:
                         init = False
@@ -538,4 +541,7 @@ elif GameType == '--test':
     
     print(R[2])
     while 1:
-        continue
+        continue 
+    
+
+

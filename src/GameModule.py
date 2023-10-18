@@ -73,7 +73,8 @@ class GameClass(object):
                 
                 elif AgentID in [1]:
                     AgentAction = Agent.chooseActions(ObservedState, State, Qlearning_table_2) 
-                else:    
+                else:
+                    print("Agent : ", Agent) 
                     AgentAction = Agent.chooseActions(ObservedState, State) 
                     
 

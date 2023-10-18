@@ -107,7 +107,7 @@ def sendMessage(msg, conn, verbose = False):
 
 
 def timer_fn(verbose = False):
-    verbose = True
+    verbose = False
     global Ledger
     global PlayerID
     global board
@@ -205,10 +205,11 @@ def timer_fn(verbose = False):
                         data = pickle.loads(data)
                         pickleLoadSuccessful = True
                     except:
-                        print('HumanInterface.py line 156:  Failed to unpickle data at time ',int(round(time.time() * 1000)))
-                        print('Ignoring this bad packet.') 
+                        pass 
+                        # print('HumanInterface.py line 156:  Failed to unpickle data at time ',int(round(time.time() * 1000)))
+                        # print('Ignoring this bad packet.') 
                     if pickleLoadSuccessful == True:                   
-                        print('HumanInterface.py line 158:  Successful unpickle of data at time ',int(round(time.time() * 1000)))
+                        # print('HumanInterface.py line 158:  Successful unpickle of data at time ',int(round(time.time() * 1000)))
                         contents = data["contents"] 
                         
                         if data["contents"] == "RemoteAgent":
@@ -218,8 +219,11 @@ def timer_fn(verbose = False):
                             AgentID = data["id"]
                             newOri = data["newOri"] 
                             UnitID = data["UnitID"]
+                            
+                            # Updating the image in the cell.. 
                             board[board._nrows-1-newPosition[1]][newPosition[0]] = (newOri,Ledger["Agents"][AgentID]["Units"][UnitID]["ImagePath"])
                             Ledger["Agents"][AgentID]["Units"][UnitID]["Position"] = newPosition
+                           
                             if UnitID == max(Ledger["Agents"][AgentID]["Units"]):
                                 if AgentID == 2:
                                     if PlayerID == 2:
@@ -243,7 +247,7 @@ def timer_fn(verbose = False):
                                                 board.set_bgframe(r,c,"white")
     
                         elif data["contents"] == "requestActions":
-                            # board.clear()
+                            board.clear()   
                             data_at_1 = data[1]
                             from src.UI_Files.board import ResponseVal
                             board_func = ResponseVal()
@@ -253,7 +257,7 @@ def timer_fn(verbose = False):
                             for key, value in data_at_1.items():
                                 # print(f"Key: {key}")
                                 e_key.append(key)
-                            print(e_key)
+                            # print(e_key)
                             board_func.create_eliminate(e_key)
 
 
@@ -288,14 +292,17 @@ def timer_fn(verbose = False):
                             # print('//////////////3///////////',data[2])
                             # print('//////////////4///////////',data[3])
                             # print('//////////////5///////////',data[0])
-                            #print(data) 
+                            #print(data)  
+                            # recived data...
+                             
                             PossibleActions = data[0]
                             ObservedState = data[1]
                             ActionNames = data[2]
                             UnitTypes = data[3]
                             remoteActions = []
                             remoteIDX = 0
-                            Actions = []
+                            Actions = [] 
+                            
                             for UnitID, Unit in ObservedState.items():
                                   UnitOwner = nth(Unit,0).Owner    
                                   TempPos = nth(Unit,0).Position
@@ -311,8 +318,10 @@ def timer_fn(verbose = False):
                                   else:
                                       UnitColor = TeamColors[UnitOwner]
                                   ImagePath = UnitModules[UnitType] + '-' + UnitColor + '.gif'
+                                  # Important.. 
+                                  # update the UI....  
                                   board[board._nrows-1-UnitPosition[1]][UnitPosition[0]] = (UnitOrientation, ImagePath)
-    
+                            
                             for UnitID in PossibleActions.keys():
                                 if(UnitID == 13 or  UnitID == 18 ):
                                         index_18_position = positions[UnitID]
@@ -323,14 +332,20 @@ def timer_fn(verbose = False):
                                 # text_field.delete('1.0', END)
                                 # text_field.insert('1.0','*****W A R   G A M E****')
                                 #Action = (UnitID,[getUnitAction(UnitTypes[UnitID],PossibleActions[UnitID],'',0)])
+                                
                                 if(UnitID == 14 or  UnitID == 19 ):
                                     from src.UI_Files.board import ResponseVal
                                     board_func = ResponseVal() 
-                                    board_func.dissabled_all() 
+                                    board_func.dissabled_all()  
+                                    
+                                    
                                 board.on_box_find(UnitID)
                                 Action = ( UnitID, [ getUnitAction(UnitTypes[UnitID], PossibleActions[UnitID],'', ActionNames[UnitID]) ] )
-                                Actions.append(Action)
-                            client.send(pickle.dumps(Actions))
+                                Actions.append(Action) 
+                                
+                                print("stop")
+                            
+                            client.send(pickle.dumps(Actions)) 
                             contents = ""
                             remoteActions = []
                             remoteIDX = 0

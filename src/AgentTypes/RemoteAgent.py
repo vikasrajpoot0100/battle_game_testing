@@ -25,6 +25,7 @@ class RemoteAgentClass(AgentClass):
 
 
 class RemoteTeamAgentClass(AgentClass):
+
     def __init__(self, ID, TeamID, ClassType, Connection):
         self.AgentType = ClassType(ID, TeamID)
         self.Connection = Connection
@@ -80,12 +81,13 @@ class RemoteTeamAgentClass(AgentClass):
 
         while True:
             try:
-                print('now in RemoteAgent.py, requestActions, line 81  receiving AgentAction')
+                print("Recive data") 
+                # print('now in RemoteAgent.py, requestActions, line 81  receiving AgentAction')
                 data = conn.recv(1024)  # this line does not complete until all actions are selected for this player and the data is sent/received
-                print('size of data received is: ', len(data))   # data size is about 127 bytes
+                # print('size of data received is: ', len(data))   # data size is about 127 bytes
                 if data:
                     AgentAction = pickle.loads(data)
-                    print(AgentAction)
+                    print("Agent Actions Recived from the Agents :: ", AgentAction) 
                     break
             except socket.error as error:
                 if error.errno == errno.ECONNREFUSED:
@@ -107,6 +109,7 @@ class RemoteTeamAgentClass(AgentClass):
         start_new_thread(self.requestActions, (self.Connection, PossibleActions))
         while self.Went == 0:
             pass
+        
         return self.Actions
 
 
